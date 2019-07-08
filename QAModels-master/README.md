@@ -145,3 +145,4 @@ python interactive.py --help
 ## License
 
 All codes in **Mnemonic Reader** are under [BSD LICENSE](LICENSE).
+在此框架上，我构建了复杂度不同的三个模型，主要是一些注意力机制的计算方法不同，预测层结构简单化，只使用了pointer network
