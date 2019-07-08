@@ -1,0 +1,38 @@
+utils.py 	line93 Ìí¼Óencoding£¬145  openº¯ÊýÐÞ¸Ä
+train 	line 171,164
+"""
+        question_hidden_size=2*args.hidden_size
+        self.question_attn = layers.SeqAttnMatch(question_hidden_size, identity=False)
+        self.question_attn_gate = layers.Gate(doc_hidden_size + question_hidden_size)
+        self.question_attn_rnn = layers.StackedBRNN(
+            input_size=doc_hidden_size + question_hidden_size,
+            hidden_size=args.hidden_size,
+            num_layers=1,
+            dropout_rate=args.dropout_rnn,
+            dropout_output=args.dropout_rnn_output,
+            concat_layers=False,
+            rnn_type=self.RNN_TYPES[args.rnn_type],
+            padding=args.rnn_padding,
+        )
+
+       
+        
+
+        # Memmory-based Answer Pointer
+        self.mem_ans_ptr = layers.MemoryAnsPointer(
+            x_size=2 * args.hidden_size,
+            y_size=2 * args.hidden_size,
+            hidden_size=args.hidden_size,
+            hop=args.hop,
+            dropout_rate=args.dropout_rnn,
+            normalize=normalize
+
+   
+        self.ans_ptr=layers.PointerNetwork(
+            x_size=2 * args.hidden_size,
+            y_size=2 * args.hidden_size,
+            hidden_size=args.hidden_size,
+            dropout_rate=args.dropout_rnn,
+            normalize=normalize
+        )
+        """

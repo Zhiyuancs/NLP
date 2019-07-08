@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script>
+        function hit(passage, question){
+            var ans = document.getElementById("answer");
+            ans.innerHTML = 'waiting for answer...';
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/answer', true);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onreadystatechange = function () {
+                console.log(xhr.status);
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var json = JSON.parse(xhr.responseText);
+                    console.log(json.answer);
+                    var ans = document.getElementById("answer");
+                    ans.innerHTML = json.answer;
+                }
+            };
+            var params = JSON.stringify({"question": question, "passage": passage});
+            xhr.send(params);
+            console.log("sent");
+        }
+        function resizeTextArea (id) {
+          var a = document.getElementById(id);
+          a.style.height = '50%';
+          a.style.height = a.scrollHeight+'px';
+        }
+
+        function init() {
+          var a = document.getElementsByTagName('textarea');
+          for(var i=0,inb=a.length;i<inb;i++) {
+             if(a[i].getAttribute('data-resizable')=='true')
+              resizeTextArea(a[i].id);
+          }
+        }
+    </script>
+    <style>
+        textarea {
+            width: 90%;
+            resize: none;
+            overflow: hidden;
+        }
+        div.history {
+            border: 2px solid DodgerBlue;
+            margin: 3px;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <p>Passage:</p>
+    <textarea id='passage' onkeyup="resizeTextArea('passage')" data-resizable="true" placeholder='Your passage here'></textarea>
+</div>
+<div>
+    <p>Question:</p>
+    <textarea id='question' onkeyup="resizeTextArea('question')" data-resizable="true" placeholder='Your Question here'></textarea>
+</div>
+<div>
+    <p>Answer: <span id='answer'>Your answer appears here</span></p>
+</div>
+<button id='GetAnswer'>Get Answer</button>
+<button id='SaveCurrent'>Save Current Pair</button>
+<div id="history">
+
+</div>
+<script>
+var button = document.getElementById("GetAnswer");
+button.onclick = function (){
+    var para = document.getElementById("passage");
+    var ques = document.getElementById("question");
+    console.log("hitting");
+    hit(para.value, ques.value);
+};
+
+var save_btn = document.getElementById("SaveCurrent");
+save_btn.onclick = function (){
+    var para = document.getElementById("passage");
+    var ques = document.getElementById("question");
+    var ans = document.getElementById("answer");
+    var d1 = document.getElementById('history');
+    d1.insertAdjacentHTML('afterbegin', '<div class="history"><p>Passage:</p><p>'+
+    para.value+'</p><p>Question:</p><p>'+
+    ques.value+'</p><p>Answer:</p><p>'+
+    ans.innerHTML+'</p></div>');
+};
+</script>
+</body>
+</html>

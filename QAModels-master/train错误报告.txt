@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "train.py", line 611, in <module>
+    main(args)
+  File "train.py", line 525, in main
+    train(args, train_loader, model, stats)
+  File "train.py", line 241, in train
+    for idx, ex in enumerate(data_loader):
+  File "D:\app1\anaconda\envs\torch-0.4\lib\site-packages\torch\utils\data\dataloader.py", line 501, in __iter__
+    return _DataLoaderIter(self)
+  File "D:\app1\anaconda\envs\torch-0.4\lib\site-packages\torch\utils\data\dataloader.py", line 289, in __init__
+    w.start()
+  File "D:\app1\anaconda\envs\torch-0.4\lib\multiprocessing\process.py", line 105, in start
+    self._popen = self._Popen(self)
+  File "D:\app1\anaconda\envs\torch-0.4\lib\multiprocessing\context.py", line 212, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+  File "D:\app1\anaconda\envs\torch-0.4\lib\multiprocessing\context.py", line 313, in _Popen
+    return Popen(process_obj)
+  File "D:\app1\anaconda\envs\torch-0.4\lib\multiprocessing\popen_spawn_win32.py", line 66, in __init__
+    reduction.dump(process_obj, to_child)
+  File "D:\app1\anaconda\envs\torch-0.4\lib\multiprocessing\reduction.py", line 59, in dump
+    ForkingPickler(file, protocol).dump(obj)
+  File "D:\app1\anaconda\envs\torch-0.4\lib\site-packages\torch\multiprocessing\reductions.py", line 179, in reduce_storage
+    raise RuntimeError("Cannot pickle CUDA storage; try pickling a CUDA tensor instead")
+RuntimeError: Cannot pickle CUDA storage; try pickling a CUDA tensor instead
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "D:\app1\anaconda\envs\torch-0.4\lib\multiprocessing\spawn.py", line 106, in spawn_main
+    exitcode = _main(fd)
+  File "D:\app1\anaconda\envs\torch-0.4\lib\multiprocessing\spawn.py", line 116, in _main
+    self = pickle.load(from_parent)
+EOFError: Ran out of input
